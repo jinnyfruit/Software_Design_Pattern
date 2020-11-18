@@ -32,18 +32,18 @@ int main() {
 	nodes[3].key = newkey = 300;
 	nodes[3].next = NULL;
 
-	//search linked list
+	//search insert spot in linked lists
 
-	ptr = &nodes[0];
+	ptr = &nodes[0];	//initialize the ptr
 
 	while (ptr) {
-		if (ptr->key == newkey) {
+		if (ptr->key == newkey) {	//if the key value matches
 			printf("key already exists");
 			break;
 		}
 		if (ptr->key < newkey) {
-			oldPtr = ptr;
-			ptr = ptr->next;
+			oldPtr = ptr;	//save the current ptr into oldptr
+			ptr = ptr->next;	//change current ptr to next ptr
 		}
 		else {
 			oldPtr->next = &nodes[3];
@@ -60,4 +60,6 @@ int main() {
 		printf("%d\t", head->key);
 		head = head->next;
 	}
+
+	free(nodes);
 }

@@ -15,7 +15,7 @@ typedef struct Node {
 
 int main() {
 
-	node* head = (node*)malloc(sizeof(node));
+	node* ptr;
 	node* nodes = (node*)malloc(3 * sizeof(node));
 	int i;
 
@@ -27,30 +27,30 @@ int main() {
 	nodes[1].next = &nodes[2];
 	nodes[2].next = NULL;
 
-	*head = nodes[0];	//start with node1
+	ptr=&nodes[0];	//start with node1
 
 	int searchNum, found = 0;
 
 	printf("type a integer you wanna search:");
 	scanf("%d", &searchNum);
 
-	while (head != NULL) {
+	while (ptr != NULL) {
 
-		if (head->key == searchNum) {
+		if (ptr->key == searchNum) {
 			found = 1;
-			printf("search key found");
 			break;
 		}
 		else
-			head = head->next;
+			ptr = ptr->next;	//move to next node
 	}
 
-	if (found == 0) {
-		printf("search key not found");
+	if (found) {
+		printf("search key found");
+	}
+	else {
+		printf("Search key not found");
 	}
 
-	free(head);
 	free(nodes);
-
-
+	// if you free the memory that is not allocated -> error
 }
