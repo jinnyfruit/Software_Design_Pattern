@@ -1,7 +1,6 @@
 /*
 	file name: insert node before first node
 	author:jinnyfruit
-
 */
 #include <stdio.h>
 #include <stdlib.h>
