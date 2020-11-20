@@ -38,7 +38,7 @@ int main() {
 		printf("%d\t", ptr->key);
 		ptr = ptr->next;
 	}
-
+   
 	node* nx_ptr,*prv_ptr=NULL; 
     int delnum,deleted=0;
 
