@@ -18,7 +18,7 @@ void del_num(int*);
 
 int main() {
 
-	node* head, * old_ptr = NULL;
+	node* ptr, * old_ptr = NULL;
 	node* nodes = (node*)malloc(3 * sizeof(node));
 
 
@@ -30,47 +30,40 @@ int main() {
 	nodes[1].next = &nodes[2];
 	nodes[2].next = NULL;
 
-	head = &nodes[0];	//start with node1
-
-	int searchNum, found = 0;
+	ptr = &nodes[0];	//start with node1
 
 	printf("original node-key value\n");
 
-	while (head != NULL) {
-		printf("%d\t", head->key);
-		head = head->next;
+	while (ptr != NULL) {
+		printf("%d\t", ptr->key);
+		ptr = ptr->next;
 	}
 
 	int delnum;
 	printf("\ntype a integer you wanna delete:");
 	scanf("%d", &delnum);
 
-	head = &nodes[0];
+	ptr = &nodes[0];
 
-	while (head != NULL) {
+	while (ptr != NULL) {
 
-		if (head->key == delnum) {
-			head = head->next;
-			old_ptr->next = head;
+		if (ptr->key == delnum) {
+			ptr = ptr->next;
+			old_ptr->next = ptr;
 		}
 		else {
-			old_ptr = head;
-			head = head->next;
+			old_ptr = ptr;
+			ptr = ptr->next;
 		}
-
-
 	}
 
-	head = &nodes[0];
+	ptr = &nodes[0];
 
 	printf("\ndeleted node-key value\n");
-	while (head != NULL) {
-		printf("%d\t", head->key);
-		head = head->next;
+	while (ptr != NULL) {
+		printf("%d\t", ptr->key);
+		ptr = ptr->next;
 	}
 
-	free(head);
 	free(nodes);
-
-
 }
