@@ -11,6 +11,7 @@ typedef struct NODE
    struct NODE* next;
 }Node;
 
+void make_node(int*, Node*);
 
 int main(){
 
@@ -20,15 +21,7 @@ int main(){
 
     int i=0,found=0;
     
-    //printf("1\n");
-
-    printf("original array\n");
-   for(i=0;i<10;i++){   //Initialize only the address value and save it in the struct (exactly saved in the node)
-       node[i].key=arr[i];
-        printf("%d\t",node[i].key);
-       node[i].next=NULL;
-   }
-   
+    make_node(arr,node);
 
    //printf("\n2\n");
 
@@ -83,4 +76,14 @@ int main(){
     printf("\n");
 
     return 0;
+}
+void make_node(int* arr, Node* node){
+     //printf("1\n");
+    int i;
+    printf("original array\n");
+   for(i=0;i<10;i++){   //Initialize only the address value and save it in the struct (exactly saved in the node)
+       node[i].key=arr[i];
+        printf("%d\t",node[i].key);
+       node[i].next=NULL;
+   }
 }
