@@ -67,11 +67,11 @@ int main(){
         }
     }
   
-    printf("\nAscended linked-list\n");
+    printf("\nAscended linked-list\n"); //print out to check if the linked-list is correctly ascended
     ptr=first;
     while(ptr){
         printf("%d\t",ptr->key);
-        ptr=ptr->next;
+        ptr=ptr->next;  //move ptr to next ptr
     }
     printf("\n");
 
@@ -84,6 +84,6 @@ void make_node(int* arr, Node* node){
    for(i=0;i<10;i++){   //Initialize only the address value and save it in the struct (exactly saved in the node)
        node[i].key=arr[i];
         printf("%d\t",node[i].key);
-       node[i].next=NULL;
+       node[i].next=NULL;   //init node's next to NULL -> not linked yet
    }
 }
