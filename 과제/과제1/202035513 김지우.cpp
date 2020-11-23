@@ -11,7 +11,7 @@ int main()
 	int cupNum;
 	float pint, quart, gallon;
 	printf("type the number of cup:");
-	scanf_s("%d", &cupNum);
+	scanf("%d", &cupNum);
 
 	liquid(cupNum, &pint, &quart, &gallon);    //function call
 
