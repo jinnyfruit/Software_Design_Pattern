@@ -7,29 +7,45 @@ part1. Setup
 #include <string.h>
 #include <stdlib.h>
 #define MAX 35
-typedef struct Data{
+#define NUM 50
+typedef struct DATA{
     int tag; //unique number
-    int resistered[MAX];
+    char resistered[MAX];
     char fee;
     char name[25];
     int age;
     char organization[MAX];
     char job[MAX]; 
-}data;
+}Data;
+typedef struct Node_Data{
+    int tag; //unique number
+    char resistered[MAX];
+    char fee;
+    char name[25];
+    int age;
+    char organization[MAX];
+    char job[MAX]; 
+    struct Node_Data* next;   
+}Node;
+Data data[NUM];
+Node node[NUM];
+int count=0;    //counts the number of elements in data
 int main(){
     
-    FILE* fps=fopen("registeration_data.txt","r");
+    FILE* fp_d,*fp_n;
 
-    if(fps==NULL){
-        printf("error: file can not read!");
-    }
-    else{
-        //first save it in the struct array, next save it in the linked list
+    fp_d=fopen("registration_data.txt","r");    //for array
+    fp_n=fopen("registration_data.txt","r");    //for nodes
 
-        data person[MAX];
-        int i=0;
-        while(fscnaf(fps,"%d/%d-%d-%d/%s/%s/%d/%s/%s",&person[i].tag,&person[i].resistered,person,person[i].fee,person[i].name,&person[i].age,))
+    if(fp_d==NULL||fp_n==NULL){
+        printf("Can't read file!");
+        return 0;   //defensive coding
     }
+
+    
+   
+    fclose(fp_d);
+    fclose(fp_n);
 
     return 0;
 }

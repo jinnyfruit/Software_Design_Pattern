@@ -35,6 +35,6 @@ void bin(int num) {
         arr[i]=num%2;
 	}
 }
-void hex(int* arr){ //커찮
+void hex(int* arr){ 
 
 }
