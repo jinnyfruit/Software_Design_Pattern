@@ -5,10 +5,6 @@
 
 int N = 0;
 
-int checksum=0;
-char line1[5][10],line2[5][10];
-int i,j,count;
-
 struct PERSON {
     int tag;
     char date[20];
@@ -313,55 +309,49 @@ void insert_gildong_node()
     }
 }
 
-void get_data(){
-    for(i=0;i<5;i++)
-        strcpy(line1[i],people[N-5+i].last_name);
-    
-    for(i=0;i<5;i++){
-        count=strlen(line1[i]);
-        for(j=0;j<count;j++){
-            checksum+=MASK^line1[i][j];
-        }
+void make_checksum(){
+    int checksum = 0;
+    char line1[5][10];
+    for(int i = 0; i < 5; i++)
+        strcpy(line1[i], people[N-5+i].last_name);
+    for(int i = 0; i < 5; i++){
+        int count = strlen(line1[i]);
+        for(int j = 0; j < count; j++)
+            checksum += MASK ^ line1[i][j];
     }
-}
-void copy_compare_data(){
-    FILE* fp=fopen("compare.txt","w");
-
-    fprintf(fp,"%d\n",checksum);
-    for(i=0;i<5;i++){
-        fprintf(fp,"%s\n",line1[i]);
-    }
+    FILE* fp = fopen("compare.txt","w");
+    fprintf(fp,"%d\n", checksum);
+    for(int i = 0; i < 5; i++)
+        fprintf(fp, "%s\n", line1[i]);
     fclose(fp);
-
-    fp=fopen("compare.txt","r");
-
+}
+void compare_checksum()
+{
+    char line2[5][10];
+    FILE* fp = fopen("compare.txt", "r");
     int checksum_compare;
     int checksum_copy=0;
     fscanf(fp,"%d",&checksum_compare);
-    for(i=0;i<5;i++){
+
+    for(int i = 0; i < 5; i++)
         fscanf(fp,"%s\n",line2[i]);
-    }
-    
-    for(i=0;i<5;i++){
-        count=strlen(line2[i]);
-        for(j=0;j<count;j++){
+    for(int i = 0; i < 5;i++){
+        int count = strlen(line2[i]);
+        for(int j = 0; j < count; j++)
             checksum_copy+=MASK^line2[i][j];
-        }
     }
 
-    int result=-1;
+    if(checksum_copy==0){
+        printf("no file made"); //defensive coding
+    }
 
-    result=checksum_compare^checksum_copy; 
-
-    if(result==0){
+    if((checksum_compare ^ checksum_copy) == 0)
         printf("same data sent.\n");
-    }
     else
-    {
         printf("error:different data sent!\n");
-    }
     fclose(fp);
 }
+
 
 int main()
 {
@@ -400,8 +390,8 @@ int main()
     insert_gildong_arr();
 
     printf("\n====send data and check chechsum====\n");
-    get_data();
-    copy_compare_data();
+    make_checksum();
+    compare_checksum();
 
     return 0;
 }

@@ -337,8 +337,14 @@ void copy_compare_data(){
             checksum_copy+=MASK^line2[i][j];
         }
     }
+    
+    if(checksum_copy==0){
+        printf("no file made"); //defensive coding
+    }
+else{
     int result=-1;
 
+    
     result=checksum_compare^checksum_copy; 
 
     if(result==0){
@@ -348,6 +354,7 @@ void copy_compare_data(){
     {
         printf("error:different data sent!\n");
     }
+}
     fclose(fp);
 }
 
