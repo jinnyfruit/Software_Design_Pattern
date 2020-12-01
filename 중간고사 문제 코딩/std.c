@@ -5,6 +5,8 @@
 
 	Get the students name and score, and sort them by calculating grades
 	mean+std < A, mean-std < B < mean+std, C < mean-std  -> grade classification criteria
+
+	author: Ji Woo, Kim
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,7 +68,7 @@ int main()
 		else
 			return 0;
 	}
-	//Áßº¹°ª È®ÀÎ
+	//ì¤‘ë³µê°’ í™•ì¸
 
 	int A = 0, B = 0, C = 0;  //save the value of each grade
 
@@ -86,8 +88,8 @@ int main()
 			break;
 		}
 	}
-	//ÇĞ»ıÀÌ¸§,Á¡¼ö,µî±Ş Ãâ·Â
-	//ÃÖÁ¾À¸·Î ÇØ´çµî±ŞÀ» ¸î¸íÀÌ ¹Ş¾Ò´ÂÁö Ãâ·Â
+	//í•™ìƒì´ë¦„,ì ìˆ˜,ë“±ê¸‰ ì¶œë ¥
+	//ìµœì¢…ìœ¼ë¡œ í•´ë‹¹ë“±ê¸‰ì„ ëª‡ëª…ì´ ë°›ì•˜ëŠ”ì§€ ì¶œë ¥
 
 	for (i = 0; i < MAX_NUM; i++) {
 		printf("name: %s score:%d grade:%c \n", test[i].name, test[i].score, test[i].grade);
