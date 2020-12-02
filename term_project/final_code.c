@@ -7,10 +7,6 @@
 #define MASK 0x40
 
 int a = 0;
-int checksum=0;
-char line1[5][10],line2[5][10];
-int i,j,count;
-
 
 struct PERSON {
     int tag;
@@ -29,18 +25,27 @@ struct PERSON* head;
 
 void setup()
 {
-    FILE* myfile;
-    myfile = fopen("registraion_data.txt", "r");
+    FILE* in;
+    in = fopen("registraion_data.txt", "r");
 
-    while (fscanf(myfile, "%d/%s/%s/%s/%d/%s/%s", &p[a].tag, p[a].date, p[a].fee, p[a].first_name, p[a].last_name, &p[a].age, p[a].organization, p[a].job) == 8) {
-        printf("%d %s %s %s %s %d %s %s\n", p[a].tag, p[a].date, p[a].fee, p[a].first_name, p[a].last_name, p[a].age, p[a].organization, p[a].job);
+
+    while (fscanf(in, "%d/%[^/]/%[^/]/%[^ ] %[^/]/%d/%[^/]/%s", &p[a].tag, p[a].date, p[a].fee, p[a].first_name, p[a].last_name, &p[a].age, p[a].organization, p[a].job) == 8)
+    {
+
+        printf("%2d %1s %-3s %s %s %d %s %s\n", p[a].tag, p[a].date, p[a].fee, p[a].first_name, p[a].last_name, p[a].age, p[a].organization, p[a].job);
+
         a++;
+
     }
-    fclose(myfile);
+
+
+    fclose(in);
 }
 
 
-void search(char *search_word)
+
+
+void search(char* search_word)
 {
     printf("search word: %s\n\n", search_word);
 
@@ -86,6 +91,20 @@ void sort_by_tag()
     for (int i = 0; i < a; i++)
     {
         printf("%2d %s %-3s %s %s %d %s %s\n", p[i].tag, p[i].date, p[i].fee, p[i].first_name, p[i].last_name, p[i].age, p[i].organization, p[i].job);
+    }
+}
+
+void sort_by_tag_node()
+{
+    for (int i = 0; i < a; i++)
+    {
+        for (int j = i + 1; j < a; j++)
+        {
+            if (p[i].tag > p[j].tag)
+            {
+                swap(&p[i], &p[j]);
+            }
+        }
     }
 }
 
@@ -178,10 +197,10 @@ void write_data()
 void delete_name_arr(char* name) {
     int i, j, stack = 0;
     for (i = 0; i < a; i++) {
-        if (strcmp(name, p[i].last_name)==0) {
+        if (strcmp(name, p[i].last_name) == 0) {
             stack += 1;
-            for (j = i ; j < a; j++) {
-                
+            for (j = i; j < a; j++) {
+
                 p[j].tag = p[j + 1].tag;
                 strcpy(p[j].date, p[j + 1].date);
                 strcpy(p[j].fee, p[j + 1].fee);
@@ -197,7 +216,7 @@ void delete_name_arr(char* name) {
     for (int i = 0; i < a; i++) {
         printf("%2d %s %-3s %s %s %d %s %s\n", p[i].tag, p[i].date, p[i].fee, p[i].first_name, p[i].last_name, p[i].age, p[i].organization, p[i].job);
     }
-    
+
 }
 
 void delete_name_node(char* name) {
@@ -210,28 +229,28 @@ void delete_name_node(char* name) {
         p[i].next = &p[i + 1];
     }
     struct PERSON* ptr;
-    int i = 0, stack=0;
+    int i = 0, stack = 0;
     struct PERSON* prev_people, * curr_people;
     prev_people = p;
     curr_people = p->next;
     while (curr_people) {
         stack++;
-        if (strcmp(prev_people->last_name, name) == 0&&stack==1) {
+        if (strcmp(prev_people->last_name, name) == 0 && stack == 1) {
             i++;
-            
+
             printf("last name is %s\n", prev_people->last_name);
         }
-        else if (strcmp(curr_people->last_name, name)==0) {
+        else if (strcmp(curr_people->last_name, name) == 0) {
             printf("last name is %s\n", curr_people->last_name);
             prev_people->next = curr_people->next;
-            
+
         }
         prev_people = curr_people;
         curr_people = curr_people->next;
     }
-    
-   
-    ptr = p+i;
+
+
+    ptr = p + i;
 
     while (ptr->next != NULL)
     {
@@ -249,11 +268,11 @@ void delete_name_node(char* name) {
 void insert_gildong_arr()
 {
     struct PERSON temp;
-    
+
     int k = a + 1;
 
-    p[a].tag = 20;
-    strcpy(p[a].first_name,"Gildong");
+    p[a].tag = 31;
+    strcpy(p[a].first_name, "Gildong");
     strcpy(p[a].last_name, "Paik");
     strcpy(p[a].date, "2020-11-30");
     strcpy(p[a].fee, "yes");
@@ -266,7 +285,7 @@ void insert_gildong_arr()
     {
         for (int j = i + 1; j < k; j++)
         {
-            if (p[i].tag > p[j].tag)
+            if (p[i].age > p[j].age)
             {
                 swap(&p[i], &p[j]);
             }
@@ -283,10 +302,13 @@ void insert_gildong_node()
 {
     struct PERSON* ptr;
 
+    int i = 0;
+
+    sort_by_tag_node();
 
     for (int i = 0; i <= a; i++)
     {
-        if (i == a )
+        if (i == a)
         {
             p[i].next = NULL;
         }
@@ -295,75 +317,65 @@ void insert_gildong_node()
 
     ptr = p;
 
-    while ((*ptr).next != NULL)
+    while (i!=a)
     {
         printf("%2d %s %-3s %s %s %d %s %s\n", (*ptr).tag, (*ptr).date, (*ptr).fee, (*ptr).first_name, (*ptr).last_name, (*ptr).age, (*ptr).organization, (*ptr).job);
         ptr = ptr->next;
+        i++;
     }
 }
 
-void get_data(){
-    for(i=0;i<5;i++)
-        strcpy(line1[i],p[a-5+i].last_name);
+void make_checksum(){
+    int checksum = 0;
+    char line1[5][10];  //get five recent data 
+    for(int i = 0; i < 5; i++)
+        strcpy(line1[i], p[a-5+i].last_name);   //copy the last name
+    for(int i = 0; i < 5; i++){
+        int count = strlen(line1[i]);   //get the length of line1
+        for(int j = 0; j < count; j++)
+            checksum += MASK ^ line1[i][j]; //bitwise operation
+    }
     
-    for(i=0;i<5;i++){
-        count=strlen(line1[i]);
-        for(j=0;j<count;j++){
-            checksum+=MASK^line1[i][j];
-        }
-    }
-}
-void copy_compare_data(){
-    FILE* fp=fopen("compare.txt","w");
-
-    fprintf(fp,"%d\n",checksum);
-    for(i=0;i<5;i++){
-        fprintf(fp,"%s\n",line1[i]);
-    }
+    FILE* fp = fopen("compare.txt","w");    //make a new file (assume we are sending data)
+    fprintf(fp,"%d\n", checksum);   // send checksum and data 
+    for(int i = 0; i < 5; i++)
+        fprintf(fp, "%s\n", line1[i]);
     fclose(fp);
-
-    fp=fopen("compare.txt","r");
-
-    int checksum_compare;
-    int checksum_copy=0;
+}
+void compare_checksum()
+{
+    char line2[5][10];
+    FILE* fp = fopen("compare.txt", "r");   //read a copied data
+    int checksum_compare;   //checksum of original data
+    int checksum_copy=0;    //checksum of copied file
     fscanf(fp,"%d",&checksum_compare);
-    for(i=0;i<5;i++){
+
+    for(int i = 0; i < 5; i++)
         fscanf(fp,"%s\n",line2[i]);
-    }
-    
-    for(i=0;i<5;i++){
-        count=strlen(line2[i]);
-        for(j=0;j<count;j++){
+    for(int i = 0; i < 5;i++){
+        int count = strlen(line2[i]);
+        for(int j = 0; j < count; j++)
             checksum_copy+=MASK^line2[i][j];
-        }
     }
-    
-    if(checksum_copy==0){
+
+    if(checksum_copy==0){   //data haven't send
         printf("no file made"); //defensive coding
     }
-else{
-    int result=-1;
 
-    
-    result=checksum_compare^checksum_copy; 
-
-    if(result==0){
+    if((checksum_compare ^ checksum_copy) == 0) //check if the original data and copied data are same.
         printf("same data sent.\n");
-    }
     else
-    {
-        printf("error:different data sent!\n");
-    }
-}
+        printf("error:different data sent!\n"); //if not, print error!
     fclose(fp);
 }
+
 
 int main()
 {
     setup();
-   
+
     head = p;
-    
+
     char name[5] = "Choi";
     char university[18] = "Gachon University";
 
@@ -394,10 +406,12 @@ int main()
     printf("====inserted gildong====\n");
     insert_gildong_arr();
 
-    printf("\n====send data and check chechsum====\n");
-    get_data();
-    copy_compare_data();
+    printf("====inserted gildong node====\n");
+    insert_gildong_node();
 
+    printf("\n====send data and check chechsum====\n");
+    make_checksum();
+    compare_checksum();
 
     return 0;
 }
